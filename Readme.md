@@ -43,6 +43,9 @@ builder.SetAvatarUrl("some.avatar.url")
 addDurationToNow := builder.AddTime()
 builder.SetTokenExpirationMs(addDurationToNow(time.Minute * 30))
 builder.SetSessionExpirationMs(addDurationToNow(time.Hour * 12))
+
+// If using the Group Reservation feature, set the reservation sid from the API response
+builder.SetReservationSid("rsv_abc123")
 ```
 
 Finally, call `build()` to generate the token string:

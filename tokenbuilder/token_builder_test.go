@@ -152,6 +152,29 @@ func TestSessionExpirationMs(t *testing.T) {
 	}
 }
 
+func TestReservationSid(t *testing.T) {
+	var tests = []struct {
+		expectedReservationSid string
+	}{
+		{expectedReservationSid: "rsv_abc123"},
+		{expectedReservationSid: ""},
+	}
+
+	for i, tt := range tests {
+		testName := fmt.Sprintf("(%d): setting reservation sid %s. Expecting reservation sid %s", i, tt.expectedReservationSid, tt.expectedReservationSid)
+		t.Run(testName, func(t *testing.T) {
+			instance := NewTokenBuilder()
+
+			instance.SetReservationSid(tt.expectedReservationSid)
+			reservationSid := instance.GetReservationSid()
+
+			if reservationSid != tt.expectedReservationSid {
+				t.Errorf("got %s, want %s", reservationSid, tt.expectedReservationSid)
+			}
+		})
+	}
+}
+
 func TestBuild(t *testing.T) {
 	var tests = []struct {
 		givenInstance func() ITokenBuilder

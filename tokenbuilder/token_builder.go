@@ -24,6 +24,9 @@ type ITokenBuilder interface {
 	SetSessionExpirationMs(int64)
 	GetSessionExpirationMs() int64
 
+	SetReservationSid(string)
+	GetReservationSid() string
+
 	Build() (string, error)
 	AddTime() func(dur time.Duration) int64
 }
@@ -36,6 +39,7 @@ type tokenBuilder struct {
 	avatarUrl           string
 	tokenExpirationMs   int64
 	sessionExpirationMs int64
+	reservationSid      string
 }
 
 func NewTokenBuilder() *tokenBuilder {
@@ -102,6 +106,16 @@ func (t *tokenBuilder) SetSessionExpirationMs(sessionExpirationMs int64) {
 // GetSessionExpirationMs returns the session expiration in ms.
 func (t *tokenBuilder) GetSessionExpirationMs() int64 {
 	return t.sessionExpirationMs
+}
+
+// SetReservationSid sets the reservation sid onto the token builder. This is optional for building a token.
+func (t *tokenBuilder) SetReservationSid(reservationSid string) {
+	t.reservationSid = reservationSid
+}
+
+// GetReservationSid returns the reservation sid.
+func (t *tokenBuilder) GetReservationSid() string {
+	return t.reservationSid
 }
 
 // Build generates JWS token for the provided user info param.

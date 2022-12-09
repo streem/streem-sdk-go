@@ -18,6 +18,7 @@ type claim struct {
 	Name           string `json:"name"`
 	Picture        string `json:"picture"`
 	Subject        string `json:"sub"`
+	ReservationSid string `json:"streem:reservation_sid"`
 }
 
 // newClaim generates a byte array for a claim
@@ -32,6 +33,7 @@ func newClaim(info *tokenBuilder) ([]byte, error) {
 		Email:          info.GetEmail(),
 		Name:           info.GetName(),
 		Picture:        info.GetAvatarUrl(),
+		ReservationSid: info.GetReservationSid(),
 	}
 
 	return claim.toBytes()
